@@ -1,0 +1,23 @@
+@keyframes down {
+  from {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.tl-bg {
+  background: url(../assets/image/bg.avif) no-repeat;
+  background-size: 100% 100%;
+}
+.arrow {
+  animation: down infinite 2s;
+}
+
+.about {
+  background: url(../assets/image/about.avif) no-repeat center;
+  background-size: 100%;
+}
