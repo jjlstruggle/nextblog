@@ -7,11 +7,10 @@ import { RefObject, useEffect } from "react";
 
 interface PostPage {
   post: PostConfig;
-  morePosts: any;
   app: RefObject<HTMLDivElement>;
 }
 
-export default function Post({ post, morePosts, app }: PostPage) {
+export default function Post({ post, app }: PostPage) {
   useEffect(() => {
     app.current!.scrollTop = 0;
   }, []);

@@ -19,7 +19,6 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
     if (!data.preview) {
       data.preview = content.substring(0, 200);
     }
-
     if (!data.tags) {
       data.tags = [];
     } else {
@@ -37,12 +36,11 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
     if (field === "slug") {
       items[field] = realSlug;
     }
-    if (field === "content") {
-      items[field] = content;
-    }
-
     if (typeof data[field] !== "undefined") {
       items[field] = data[field];
+    }
+    if (field === "content") {
+      items.content = content;
     }
   });
 

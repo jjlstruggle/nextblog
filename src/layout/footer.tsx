@@ -3,7 +3,7 @@ import Image from "next/future/image";
 import icp from "@image/icp.avif";
 export default function Footer() {
   return (
-    <div className="flex flex-col items-center py-3 bg-tl-300 text-white">
+    <div className="flex flex-col items-center py-3 bg-tl-300 text-white bg-gray-100">
       <div className="py-[0.125rem] text-gray-500">Copyright © 2022 saga</div>
       <div className="py-[0.125rem]">
         站点总字数：14k | 总访问量：161 | 总访问人数：131

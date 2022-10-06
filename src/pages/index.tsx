@@ -1,8 +1,7 @@
 import styles from "@style/index.module.css";
 import Image from "next/future/image";
 import avatar from "@image/avatar.avif";
-
-import { Fragment, LegacyRef, RefObject, useEffect, useRef } from "react";
+import { Fragment, LegacyRef, useEffect, useRef } from "react";
 import { Divider, Empty, Tooltip } from "antd";
 import Card from "@/components/card";
 import { getAllPosts } from "@/utils/getAllpost";
@@ -55,6 +54,7 @@ const Home = ({ allPosts }: Page) => {
   const titleRef: LegacyRef<HTMLSpanElement> = useRef(null);
   const enTitleRef: LegacyRef<HTMLSpanElement> = useRef(null);
   const isFirstMount = useRef(true);
+  console.log(allPosts);
 
   useEffect(() => {
     (async () => {
@@ -105,9 +105,9 @@ const Home = ({ allPosts }: Page) => {
           </div>
         </div>
       </div>
-      <div className="w-screen bg-tl-100 pt-5" ref={contentRef}>
-        <div className="w-full mx-auto  flex " style={{ maxWidth: 1200 }}>
-          <div className="mr-5 w-2/3 shadow-xl">
+      <div className="w-screen bg-tl-100 pt-5 bg-gray-100" ref={contentRef}>
+        <div className="w-full mx-auto flex " style={{ maxWidth: 1200 }}>
+          <div className="mr-5 w-2/3 shadow-xl bg-white">
             {!allPosts.length && (
               <div className="w-full flex items-center justify-center h-full">
                 <Empty
@@ -118,16 +118,21 @@ const Home = ({ allPosts }: Page) => {
               </div>
             )}
             {allPosts.map((item, index) => (
-              <Card
-                key={index}
-                postImg={item.img!}
-                title={item.title!}
-                desc={item.preview!}
-                tag={item.tags || []}
-                pubTime={item.date!}
-                slug={item.slug}
-              />
+              <div className="m-2">
+                <Card
+                  key={index}
+                  postImg={item.img}
+                  title={item.title || item.slug}
+                  desc={item.preview}
+                  tag={item.tags}
+                  pubTime={item.date!}
+                  slug={item.slug}
+                />
+              </div>
             ))}
+            <div className="text-center text-lg pt-8">
+              没有内容了哦~ 再滑下去---就不礼貌了 (雾
+            </div>
           </div>
           <div className="w-1/3">
             <div className="border border-slate-200 w-full mb-5 shadow-md">
@@ -174,15 +179,7 @@ const Home = ({ allPosts }: Page) => {
 
 export const getStaticProps = async () => {
   const allPosts =
-    getAllPosts([
-      "title",
-      "date",
-      "tags",
-      "img",
-      "keywords",
-      "preview",
-      "slug",
-    ]) || [];
+    getAllPosts(["title", "date", "tags", "img", "preview", "slug"]) || [];
 
   return {
     props: { allPosts },

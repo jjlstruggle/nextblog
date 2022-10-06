@@ -1,9 +1,9 @@
-import { RefObject, useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import getNav from "@/utils/getAllNavElement";
 import { Nav } from "@/interface/type";
 import { Spin, Tree } from "antd";
 import { nanoid } from "nanoid";
-
+import { ReadOutlined } from "@ant-design/icons";
 interface Collect {
   title: string;
   children: Collect[];
@@ -61,13 +61,7 @@ function handleNav(nav: Nav[]) {
   return collect;
 }
 
-function ArticleNavbar({
-  box,
-  app,
-}: {
-  box: RefObject<HTMLDivElement>;
-  app: RefObject<HTMLDivElement>;
-}) {
+function ArticleNavbar({ box }: { box: RefObject<HTMLDivElement> }) {
   const [nav, setNav] = useState<Collect[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -81,8 +75,11 @@ function ArticleNavbar({
 
   return (
     <div className="relative">
+      <div className="flex items-center text-2xl font-bold font-serif mb-2">
+        <ReadOutlined />
+        <span className="ml-2">目录</span>
+      </div>
       <Tree
-        className="text-xs"
         treeData={nav}
         defaultExpandAll
         onSelect={(_, { node }) => {

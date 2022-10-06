@@ -7,13 +7,20 @@ import dayjs from "dayjs";
 import Link from "next/link";
 
 interface CardProps {
-  postImg: string;
+  postImg?: string;
   title: string;
   desc: string;
   tag: string[];
   pubTime: string;
   slug: string;
 }
+
+const colors = ["#1890ff", "#87d068", "#f50", "cyan", "purple", "gold"];
+
+const getColor = (index: number) => {
+  let range = Math.floor(Math.random() * (5 - index));
+  return colors.splice(range, 1)[0];
+};
 
 export default function Card(props: CardProps) {
   let { postImg, title, desc, tag, pubTime, slug } = props;
@@ -24,20 +31,13 @@ export default function Card(props: CardProps) {
     pubTime = time.year() + "-" + (time.month() + 1) + "-" + time.date();
   }
 
-  const colors = ["#1890ff", "#87d068", "#f50", "cyan", "purple", "gold"];
-
-  const getColor = (index: number) => {
-    let range = Math.floor(Math.random() * (5 - index));
-    return colors.splice(range, 1)[0];
-  };
-
   const [tagColors, setTagColors] = useState<string[]>([] as Array<string>);
   useEffect(() => {
     setTagColors(tag.map((item, index) => getColor(index)));
   }, []);
 
   return (
-    <div className="shadow-md transition-shadow duration-500 border border-slate-200 px-4 bg-white pt-4 hover:shadow-xl mb-5">
+    <div className="shadow-md transition-shadow duration-500 border border-slate-200 px-4 bg-gray-100 pt-4 hover:shadow-xl mb-5">
       <div className="flex">
         <Link as={`/post/${slug}`} href="/post/[slug]" passHref={false}>
           <div>
